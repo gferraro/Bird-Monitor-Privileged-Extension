@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Script to prepare an update.zip containing F-Droid and the Privileged Extension.
+# Script to prepare an update.zip containing birdmonitor and the Privileged Extension.
 
 set -e
 
@@ -37,25 +37,25 @@ VERSION=$(grep versionCode=\"\[[:digit:]]\*\" app/src/main/AndroidManifest.xml |
 GITVERSION=$(git describe --tags --always)
 
 FDROID_APK=F-Droid.apk
-PRIVEXT_APK=org.fdroid.fdroid.privileged_${VERSION}.apk
-FPE_NAME=F-DroidPrivilegedExtension
+PRIVEXT_APK=nz.org.cacophony.birdmonitor_${VERSION}.apk
+FPE_NAME=birdmonitorPrivilegedExtension
 
 # Collect files
 mkdir -p $TMP_DIR/META-INF/com/google/android/
 cp app/src/main/scripts/update-binary $TMP_DIR/META-INF/com/google/android/
 cp app/src/main/scripts/80-fdroid.sh $TMP_DIR/
-cp app/src/main/permissions_org.fdroid.fdroid.privileged.xml $TMP_DIR/
+cp app/src/main/permissions_nz.org.cacophony.birdmonitor.xml $TMP_DIR/
 
 if [ -z $BINARIES ] ; then
     cd $PROG_DIR
     ./gradlew assemble$(echo $VARIANT | tr 'dr' 'DR')
-    OUT_DIR=$PROG_DIR/app/build/outputs/apk
+    OUT_DIR=$PROG_DIR/app/build/outputs/apk/$VARIANT
     if [ $VARIANT == "debug" ]; then
 	cp $OUT_DIR/$FPE_NAME-debug.apk $TMP_DIR/$FPE_NAME.apk
     elif [ -f $OUT_DIR/$FPE_NAME-release.apk ]; then
 	cp $OUT_DIR/$FPE_NAME-release.apk $TMP_DIR/$FPE_NAME.apk
     else
-        echo "No signed debug or release APK found in $OUT_DIR!"
+        echo "No $FPE_NAME-release.apk signed debug or release APK found in $OUT_DIR!"
         exit 1
     fi
 else
@@ -71,7 +71,7 @@ curl -L https://f-droid.org/$FDROID_APK > $TMP_DIR/$FDROID_APK
 curl -L https://f-droid.org/${FDROID_APK}.asc > $TMP_DIR/${FDROID_APK}.asc
 $GPG --verify $TMP_DIR/${FDROID_APK}.asc
 rm $TMP_DIR/${FDROID_APK}.asc
-test -e $TMP_DIR/F-Droid.apk || mv $TMP_DIR/$FDROID_APK $TMP_DIR/F-Droid.apk
+test -e $TMP_DIR/birdmonitor.apk || mv $TMP_DIR/$FDROID_APK $TMP_DIR/birdmonitor.apk
 
 # Make zip
 if [ -z $BINARIES ]; then

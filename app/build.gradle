@@ -24,6 +24,10 @@ gradle.allprojects {
 
 repositories {
     jcenter()
+    maven {
+        url 'https://maven.google.com/'
+        name 'Google'
+    }
 }
 
 dependencies {
@@ -39,10 +43,11 @@ android {
     buildToolsVersion '24.0.0'
 
     defaultConfig {
-        archivesBaseName = "F-DroidPrivilegedExtension"
+        archivesBaseName = "birdmonitorPrivilegedExtension"
         versionName getVersionName()
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        minSdkVersion 8
     }
 
     compileOptions {
