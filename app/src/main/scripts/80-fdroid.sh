@@ -3,7 +3,7 @@
 # ADDOND_VERSION=2
 #
 # /system/addon.d/80-fdroid.sh
-# During a system upgrade, this script backs up F-Droid client and privext,
+# During a system upgrade, this script backs up birdmonitor client and privext,
 # /system is formatted and reinstalled, then the files are restored.
 #
 
@@ -11,11 +11,11 @@
 
 list_files() {
 cat <<EOF
-app/F-Droid.apk
-app/F-Droid/F-Droid.apk
-etc/permissions/permissions_org.fdroid.fdroid.privileged.xml
-priv-app/F-DroidPrivilegedExtension.apk
-priv-app/F-DroidPrivilegedExtension/F-DroidPrivilegedExtension.apk
+app/birdmonitor.apk
+app/birdmonitor/birdmonitor.apk
+etc/permissions/permissions_nz.org.cacophony.birdmonitor.xml
+priv-app/birdmonitorPrivilegedExtension.apk
+priv-app/birdmonitorPrivilegedExtension/birdmonitorPrivilegedExtension.apk
 EOF
 }
 

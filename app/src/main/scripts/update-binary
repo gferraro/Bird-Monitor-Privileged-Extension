@@ -18,14 +18,14 @@
 # communicate with it using the recovery api.
 # arg 3 is the zip file
 
-echo -n -e 'ui_print Installing F-DroidPrivilegedExtension...\n' > /proc/self/fd/$2
+echo -n -e 'ui_print Installing birdmonitorPrivilegedExtension...\n' > /proc/self/fd/$2
 
-FPE_NAME=F-DroidPrivilegedExtension
+FPE_NAME=birdmonitorPrivilegedExtension
 FPE=${FPE_NAME}.apk
-FDROID_NAME=F-Droid
+FDROID_NAME=birdmonitor
 FDROID=${FDROID_NAME}.apk
 PERM_DIR="etc/permissions"
-PERM=permissions_org.fdroid.fdroid.privileged.xml
+PERM=permissions_nz.org.cacophony.birdmonitor.xml
 ADDOND=80-fdroid.sh
 SYSTEM="/system"
 
@@ -48,8 +48,8 @@ mount_system
 
 rm -rf "${SYSTEM}/app/FDroid"*
 rm -rf "${SYSTEM}/priv-app/FDroid"*
-rm -rf "${SYSTEM}/app/F-Droid"*
-rm -rf "${SYSTEM}/priv-app/F-Droid"*
+rm -rf "${SYSTEM}/app/birdmonitor"*
+rm -rf "${SYSTEM}/priv-app/birdmonitor"*
 
 BUILD_VERSION_SDK="$(grep -F ro.build.version.sdk ${SYSTEM}/build.prop)"
 BUILD_VERSION_SDK_INT="${BUILD_VERSION_SDK#*=}"
@@ -83,7 +83,7 @@ chmod 644 ${FPE_DIR}/${FPE}
 echo -n -e 'ui_print done\n' > /proc/self/fd/$2
 echo -n -e 'ui_print\n' > /proc/self/fd/$2
 
-echo -n -e 'ui_print Installing F-Droid...\n' > /proc/self/fd/$2
+echo -n -e 'ui_print Installing birdmonitor...\n' > /proc/self/fd/$2
 cp ${FDROID} ${FDROIDDIR}
 chmod 644 ${FDROIDDIR}/${FDROID}
 

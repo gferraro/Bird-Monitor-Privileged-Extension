@@ -26,8 +26,7 @@ import java.util.HashSet;
  * can access the Privileged Extension!
  * <ol>
  * <li>Get SHA-256 of certificate as lowercase without colons with
- * <code>keytool -printcert -jarfile com.example.apk | sed -n 's,SHA256:\s*\([A-F0-9:]*\),\1,p' | sed 's,:,,g'
- * | tr A-f a-f</code></li>
+ * <code>keytool -printcert -jarfile com.example.apk | sed -n 's,SHA256:\s*\([A-F0-9:]*\),\1,p' | sed 's,:,,g' | tr A-f a-f</code></li>
  * <li>Add here with Application ID</li>
  * </ol>
  */
@@ -35,7 +34,11 @@ public class ClientWhitelist {
 
     public static HashSet<Pair<String, String>> whitelist = new HashSet<>(Arrays.asList(
             // certificate SHA-256 of https//f-droid.org/F-Droid.apk
-            new Pair<>("org.fdroid.fdroid", "43238d512c1e5eb2d6569f4a3afbf5523418b82e0a3ed1552770abb9a9c9ccab")
+            new Pair<>("org.fdroid.fdroid", "43238d512c1e5eb2d6569f4a3afbf5523418b82e0a3ed1552770abb9a9c9ccab"),
+            //Github Bird Monitor
+            new Pair<>("nz.org.cacophony.birdmonitor", "13c580e2d6f19d636be2785d82d3a12c0dc43d15185b8a54197e618d8188b2e5"),
+            //F-Droid Bird Monitor
+            new Pair<>("nz.org.cacophony.birdmonitor", "91f0ada061b91fc4ae2e45640a7452b38a93d8c864307872f2432f86ea6617e3")
     ));
 
 }
