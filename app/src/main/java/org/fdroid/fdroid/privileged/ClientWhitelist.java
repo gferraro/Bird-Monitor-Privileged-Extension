@@ -38,7 +38,10 @@ public class ClientWhitelist {
             //Github Bird Monitor
             new Pair<>("nz.org.cacophony.birdmonitor", "13c580e2d6f19d636be2785d82d3a12c0dc43d15185b8a54197e618d8188b2e5"),
             //F-Droid Bird Monitor
-            new Pair<>("nz.org.cacophony.birdmonitor", "91f0ada061b91fc4ae2e45640a7452b38a93d8c864307872f2432f86ea6617e3")
+            new Pair<>("nz.org.cacophony.birdmonitor", "91f0ada061b91fc4ae2e45640a7452b38a93d8c864307872f2432f86ea6617e3"),
+            //Debug key
+            new Pair<>("nz.org.cacophony.birdmonitor", "700b2c3585a3ae0344294413e943b9650a14cefdf5fec40f17185f08f40ea97f")
+
     ));
 
 }
