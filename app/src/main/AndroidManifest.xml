@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="org.fdroid.fdroid.privileged"
-    android:versionCode="2090"
+    package="nz.org.cacophony.privileged"
+    android:versionCode="3000"
     android:versionName="0.3.0">
-
     <uses-sdk android:targetSdkVersion="25" />
 
     <!-- These permissions are only granted when this apk is installed as a privileged app! -->
@@ -22,16 +21,14 @@
         tools:ignore="GoogleAppIndexingWarning">
 
         <service
-            android:name=".PrivilegedService"
+            android:name="org.fdroid.fdroid.privileged.PrivilegedService"
             android:enabled="true"
             android:exported="true"
-            android:process=":fdroid_privileged"
+            android:process=":cacophony_privileged"
             tools:ignore="ExportedService">
             <intent-filter>
-                <action android:name="org.fdroid.fdroid.privileged.IPrivilegedService" />
+                <action android:name="nz.org.cacophony.privileged.IPrivilegedService" />
             </intent-filter>
         </service>
-
     </application>
-
 </manifest>

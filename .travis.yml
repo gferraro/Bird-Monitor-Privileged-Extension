@@ -1,0 +1,48 @@
+env:
+  global:
+  - ADB_INSTALL_TIMEOUT=8
+  - EMU_FLAVOR=default
+  - ANDROID_HOME=/usr/local/android-sdk
+  - TOOLS=${ANDROID_HOME}/tools
+  - PATH=${ANDROID_HOME}:${ANDROID_HOME}/emulator:${TOOLS}:${TOOLS}/bin:${ANDROID_HOME}/platform-tools:${PATH}
+  - API=25
+  - ABI=x86
+  - AUDIO=-no-audio
+language: android
+dist: trusty
+android:
+  components:
+  - tools
+licenses:
+- android-sdk-preview-license-.+
+- android-sdk-license-.+
+- google-gdk-license-.+
+before_install:
+- chmod +x gradlew
+- gem update --system
+- gem install bundler
+- bundle install
+- echo 'count=0' > /home/travis/.android/repositories.cfg
+- echo y | sdkmanager "platform-tools" >/dev/null
+- echo y | sdkmanager "tools" >/dev/null
+- echo y | sdkmanager "build-tools;28.0.3" >/dev/null
+- echo y | sdkmanager "platforms;android-$API" >/dev/null
+- echo y | sdkmanager --channel=4 "emulator"
+- echo y | sdkmanager "extras;android;m2repository" >/dev/null
+script:
+- "./gradlew clean assembleDebug"
+before_deploy:
+- openssl aes-256-cbc -K $encrypted_60c7542dce6d_key -iv $encrypted_60c7542dce6d_iv
+- in signing.tar.enc -out signing.tar -d
+- tar xvf signing.tar
+- "./create_ota.sh release"
+deploy:
+  provider: releases
+  api_key:
+    secure: w3j4UqImO0jJbGRV41BsDzhvdvNNpSQzKYh036UlOFFXz/KJyZSWFtazaw7dLGMajmumL7uZXhbLZmLXN66ME/pLc8ZIlk6FCYYI+q7tGdqBczVokq2KC0FerWwaAb+ym8fb5kulD3s1UiMcbDbae0TK5L6SMxPqKoRoDbcKHI2l1MhqQbJS8QhM5EO2Hc3W9vL4fcbpQuC6LuQ9ihQb94NRJXX748y20inATJQ0AySGY+5W7ZFftmh801ZFVF4MwfFeWSPIMbbswqzcgs2X05SyK34rQ0qHWuFnODMZIUtNxPcUHXv2Rc1JLJ4sM7RNXjntdkTsWpCv44nMILY0OX8oVZp6bXLtumofUzRjwM6dhmNmVFS6EzvXVK7JSk7F4t/yls+SeVNsiCRIyeuP/LJDD6hyqye2xp1MtA6L1rW/UhICMaEK4tlzO8Vkh3uCZajThQPEMkNJ1eKoO5alorHA23jYBAtu11khjEv4q+1bviUhuXFyE+EmkSdYIFlxOHuMPzazj34aLaDstI0zuXnw8840b4HE2CkI0kavtIMDpWvXiJtJf2hLNok7oX2eoqbiclBr9qyYHyClxkUIM/FDLGZguVlB7nhQ7iAr0TX1/u7IXsAmRKysLWizbF6i12hLiaOHkl+kOgKISPZx5NioxCgAduSxKwOYihTomLk=
+  file_glob: true
+  file: app/build/distributions/*.zip
+  skip_cleanup: true
+  on:
+    repo: TheCacophonyProject/Bird-Monitor-Privileged-Extension
+    tags: true
