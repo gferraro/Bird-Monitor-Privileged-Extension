@@ -42,6 +42,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.Method;
 
+import nz.org.cacophony.privileged.BuildConfig;
+
 /**
  * This service provides an API via AIDL IPC for the main F-Droid app to install/delete packages.
  */
