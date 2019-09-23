@@ -4,8 +4,7 @@
 
 set -e
 
-PROG_DIR=$(dirname $(realpath $0))
-
+PROG_DIR=$(pwd)
 TMP_DIR=$(mktemp -d -t fdroidprivext.tmp.XXXXXXXX)
 trap "rm -rf $TMP_DIR" EXIT
 
